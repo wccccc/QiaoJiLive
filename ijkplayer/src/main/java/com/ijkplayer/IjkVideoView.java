@@ -13,6 +13,7 @@ import java.util.Map;
 
 import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by Chaochao.Wen on 2017/10/12.
@@ -214,11 +215,11 @@ public class IjkVideoView extends SurfaceView implements MediaController.MediaPl
                 player=new IjkExoPlayer(getContext());
                 break;
             case PLAYER_TYPE_IJK:
-                //TODO do not need FFPlayer now.if you want use FFPlayer you must have .so file.
-//                IjkMediaPlayer ijkMediaPlayer=new IjkMediaPlayer();
-//                ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);//1表示优先使用MediaCodec
-//                player=ijkMediaPlayer;
-//                break;
+                // if you want use FFPlayer you must have .so file.
+                IjkMediaPlayer ijkMediaPlayer=new IjkMediaPlayer();
+                ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 1);//1表示优先使用MediaCodec
+                player=ijkMediaPlayer;
+                break;
             case PLAYER_TYPE_MEDIA:
             default:
                 player=new AndroidMediaPlayer();

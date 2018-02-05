@@ -17,17 +17,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        OkHttpUtil.doGetAsync("http://www.huya.com", new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                Log.e(TAG,"error");
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.e(TAG,response.body().string());
-            }
-        });
+//        OkHttpUtil.doGetAsync("http://www.huya.com", new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//                Log.e(TAG,"error");
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                Log.e(TAG,response.body().string());
+//            }
+//        });
     }
 }

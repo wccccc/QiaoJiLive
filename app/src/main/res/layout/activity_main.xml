@@ -6,11 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="xin.heipichao.qiaojilive.MainActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:background="@color/mainColor">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="70dp"
+                android:layout_height="26dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/ic_logo"/>
+            <xin.heipichao.qiaojilive.view.SelectView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:layout_centerInParent="true"
+                app:leftText="推荐"
+                app:rightText="分区"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#F9F9F9"-->
+        <!--android:layout_above="@+id/rg_group"/>-->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerInParent="true"/>
-
+        app:contentPaddingBottom="0dp"
+        app:contentPaddingLeft="0dp"
+        app:contentPaddingRight="0dp"
+        android:layout_alignParentBottom="true">
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:id="@+id/rg_group">
+            <RadioButton
+                android:text="虎牙"
+                style="@style/radioButtonStyle"/>
+            <RadioButton
+                android:text="斗鱼"
+                style="@style/radioButtonStyle"/>
+        </RadioGroup>
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

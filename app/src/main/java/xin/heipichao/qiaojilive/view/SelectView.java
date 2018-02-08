@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -126,7 +127,7 @@ public class SelectView extends View{
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction()==MotionEvent.ACTION_UP){
-            float x=event.getRawX();
+            float x=event.getX();
             if(x<getWidth()/2F&&mSelected){
                 setSelected(false);
                 if(mOnSelectChangeListener!=null){

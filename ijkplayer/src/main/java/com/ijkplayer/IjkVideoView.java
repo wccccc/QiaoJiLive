@@ -275,7 +275,7 @@ public class IjkVideoView extends SurfaceView implements MediaController.MediaPl
             case PLAYER_TYPE_MEDIA:
                 return "MediaPlayer";
             case PLAYER_TYPE_IJK:
-                //TODO
+                return "IjkPlayer";
             default:
                 return "MediaPlayer";
         }

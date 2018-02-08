@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mainColor">#FD4C5C</color>
+    <color name="rippleColor">#aaFD4C5C</color>
     <color name="stateBarColor">#E24452</color>
 </resources>

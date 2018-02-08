@@ -71,6 +71,10 @@ public class OkHttpUtil {
         doGetAsync(url,null,callback,connectTimeout,readTimeout);
     }
 
+    public static void doGetAsync(@NonNull String url, @Nullable Map<String,String> herders,@NonNull Callback callback){
+        doGetAsync(url,herders,callback,DEFAULT_TIMEOUT,DEFAULT_TIMEOUT);
+    }
+
     public static void doGetAsync(@NonNull String url, @Nullable Map<String,String> herders,@NonNull Callback callback,long connectTimeout, long readTimeout){
         try{
             buildCall(url,herders,null,connectTimeout,readTimeout).enqueue(callback);

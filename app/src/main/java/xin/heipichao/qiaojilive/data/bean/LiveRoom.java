@@ -1,6 +1,7 @@
 package xin.heipichao.qiaojilive.data.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import java.util.List;
 
 /**
  * Created by Chaochao.Wen on 2018/2/6.
@@ -14,6 +15,24 @@ public class LiveRoom {
     private String userNick;
     private String userImg;
     private String liveType;
+    private List<Cdn> cdns;
+    private List<Stream> streams;
+
+    public List<Cdn> getCdns() {
+        return cdns;
+    }
+
+    public void setCdns(List<Cdn> cdns) {
+        this.cdns = cdns;
+    }
+
+    public List<Stream> getStreams() {
+        return streams;
+    }
+
+    public void setStreams(List<Stream> streams) {
+        this.streams = streams;
+    }
 
     public String getTitle() {
         return title;

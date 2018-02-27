@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
@@ -432,7 +431,6 @@ public class IjkExoPlayer extends AbstractMediaPlayer implements Player.EventLis
 
         switch (playbackState) {
             case Player.STATE_IDLE:
-                stayAwake(false);
                 break;
             case Player.STATE_BUFFERING:
                 if(mFirstFrameRendered){
@@ -504,7 +502,6 @@ public class IjkExoPlayer extends AbstractMediaPlayer implements Player.EventLis
 
     @Override
     public void onRenderedFirstFrame() {
-        Log.d(TAG,"onRenderedFirstFrame()");
         mFirstFrameRendered=true;
         notifyOnInfo(IMediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START, mInternalPlayer.getBufferedPercentage());
     }

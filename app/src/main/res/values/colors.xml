@@ -6,4 +6,5 @@
     <color name="mainColor">#FD4C5C</color>
     <color name="rippleColor">#aaFD4C5C</color>
     <color name="stateBarColor">#E24452</color>
+    <color name="playerStateBarColor">#88000000</color>
 </resources>

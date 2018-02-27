@@ -2,6 +2,7 @@ package com.ijkplayer;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.PowerManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -177,9 +178,10 @@ public class IjkVideoView extends SurfaceView implements MediaController.MediaPl
         mMediaPlayer.setOnSeekCompleteListener(mOnSeekCompleteListener);
         mCurrentBufferPercentage=0;
         try {
-            mMediaPlayer.setDataSource(getContext(), mUri, mHeaders);
-            mMediaPlayer.setDisplay(mSurfaceHolder);
+            mMediaPlayer.setWakeMode(getContext(), PowerManager.PARTIAL_WAKE_LOCK);
             mMediaPlayer.setScreenOnWhilePlaying(true);
+            mMediaPlayer.setDisplay(mSurfaceHolder);
+            mMediaPlayer.setDataSource(getContext(), mUri, mHeaders);
             mCurrentState = STATE_PREPARING;
             mMediaPlayer.prepareAsync();
         } catch (IOException e) {

@@ -9,7 +9,12 @@
     </style>
 
     <style name="PlayerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryDark">@color/playerStateBarColor</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+    </style>
+
+    <style name="PlayerToolbarTitleSize" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="radioButtonStyle">

@@ -1,7 +1,6 @@
 package xin.heipichao.qiaojilive.data;
 
 import android.os.Handler;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -12,15 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-import xin.heipichao.qiaojilive.util.http.OkHttpUtil;
 
 /**
  * Created by Chaochao.Wen on 2018/2/6.
@@ -58,7 +50,44 @@ public class DataParser {
                 try {
                     Document dom= Jsoup.connect(url).get();
                     Element sc=dom.body().select("script[data-fixed=\"true\"]").get(3);
-                    notifyCallback(callback,subString(sc.html(),"\"stream\": ","\\};"));
+                    String json=subString(sc.html(),"\"stream\": ","\\};");
+                    JSONObject jsonData =JSON.parseObject(json);
+                    JSONObject liveInfo=jsonData.getJSONArray("data").getJSONObject(0).getJSONObject("gameLiveInfo");
+
+                    JSONObject jsonRoom=new JSONObject();
+                    jsonRoom.put("title",liveInfo.getString("introduction"));
+                    jsonRoom.put("liveType",liveInfo.getString("gameFullName"));
+                    jsonRoom.put("userNick",liveInfo.getString("nick"));
+                    jsonRoom.put("roomImg",liveInfo.getString("screenshot"));
+                    int num=Integer.parseInt(liveInfo.getString("totalCount"));
+                    if(num>=10000){
+                        jsonRoom.put("num",(num/10000)+"万");
+                    }else{
+                        jsonRoom.put("num",num+"");
+                    }
+                    JSONArray cdns=new JSONArray();
+                    jsonRoom.put("cdns",cdns);
+                    JSONArray streamInfoList=jsonData.getJSONArray("data").getJSONObject(0).getJSONArray("gameStreamInfoList");
+                    for(Object obj:streamInfoList){
+                        JSONObject huyaCdn= (JSONObject) obj;
+                        JSONObject cdn=new JSONObject();
+                        cdn.put("url",huyaCdn.getString("sFlvUrl")+"/"+huyaCdn.getString("sStreamName")
+                                +"."+huyaCdn.getString("sFlvUrlSuffix")+"?"+huyaCdn.getString("sFlvAntiCode"));
+                        cdn.put("name","线路"+huyaCdn.getIntValue("iLineIndex"));
+                        cdns.add(cdn);
+                    }
+                    JSONArray streams=new JSONArray();
+                    jsonRoom.put("streams",streams);
+                    JSONArray huyaStreams=jsonData.getJSONArray("vMultiStreamInfo");
+                    for(Object obj:huyaStreams){
+                        JSONObject huyaStream= (JSONObject) obj;
+                        JSONObject stream=new JSONObject();
+                        stream.put("name",huyaStream.getString("sDisplayName"));
+                        stream.put("value","&ratio="+huyaStream.getString("iBitRate"));
+                        streams.add(stream);
+                    }
+
+                    notifyCallback(callback,jsonRoom.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                     notifyCallback(callback,null);
@@ -98,8 +127,6 @@ public class DataParser {
                             int start=js.indexOf(" = ");
                             int end =js.indexOf("require(")-7;
                             String data=js.substring(start+3,end);
-//                            Log.e("fragment",data);
-//                            Log.e("fragment",data.substring(data.length()-20,data.length()));
                             JSONArray rooms= JSON.parseArray(data);
                             for (Object obj:rooms){
                                 JSONObject room= (JSONObject) obj;
@@ -146,11 +173,9 @@ public class DataParser {
 
     private static String subString(String text,String start,String end){
         String pattern = start+"(.*?)"+end;
-        Log.e("fragment",pattern);
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(text);
         if(m.find()){
-            Log.e("fragment","true");
             return m.group(1);
         }else{
             return null;
